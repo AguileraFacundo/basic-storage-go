@@ -16,7 +16,7 @@ func NewServer(db *db.Queries) *Server {
 	}
 	router := gin.Default()
 	server.router = router
-	v1 := router.Group("/v1")
+	v1 := router.Group("/api/v1")
 	//suppliers
 	v1.POST("/supplier", server.createSupplierApi)
 	v1.DELETE("/supplier/:id", server.deleteSupplierApi)
