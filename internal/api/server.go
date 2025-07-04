@@ -32,9 +32,9 @@ func NewServer(db *db.Queries) *Server {
 	//payments
 	v1.POST("/payment", server.createPaymentApi)
 	v1.GET("/payment/:id", server.getPaymentApi)
+	v1.DELETE("/payment/:id", server.deletePaymentApi)
 	v1.GET("/payments", server.listPaymentsApi)
 	v1.PUT("/payment", server.updatePaymentApi)
-	v1.DELETE("/payment", server.deletePaymentApi)
 	//sales
 	v1.POST("/sale", server.createSaleApi)
 	v1.DELETE("/sale/:id", server.deleteSaleApi)
