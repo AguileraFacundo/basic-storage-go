@@ -29,6 +29,12 @@ func NewServer(db *db.Queries) *Server {
 	v1.GET("/debts", server.listDebtsApi)
 	v1.DELETE("/debt/:id", server.deleteDebtApi)
 	v1.PUT("/debt", server.updateDebtApi)
+	//payments
+	v1.POST("/payment", server.createPaymentApi)
+	v1.GET("/payment/:id", server.getPaymentApi)
+	v1.GET("/payments", server.listPaymentsApi)
+	v1.PUT("/payment", server.updatePaymentApi)
+	v1.DELETE("/payment", server.deletePaymentApi)
 
 	return server
 }

@@ -11,7 +11,7 @@ import (
 func (server *Server) createDebtApi(ctx *gin.Context) {
 	var req struct {
 		Supplierid int64 `json:"supplier_id" binding:"required,min=1"`
-		Balance    int64 `json:"balance" binding:"required,min=1"`
+		Balance    int64 `json:"balance" binding:"required,min=0"`
 		Paid       bool  `json:"paid" binding:"required"`
 	}
 
