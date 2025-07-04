@@ -10,15 +10,14 @@ import (
 
 func (server *Server) createSaleApi(ctx *gin.Context) {
 	var req struct {
-		Name string `json:"name" binding:"required"`
+		Balance int64 `json:"balance" binding:"required,min=0"`
 	}
 
 	if err := ctx.ShouldBind(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
-
-	sale, err := server.db.CreateSale(ctx, req.Name)
+	sale, err := server.db.CreateSale(ctx, req.Balance)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -99,17 +98,17 @@ func (server *Server) listSaleApi(ctx *gin.Context) {
 
 func (server *Server) updateSaleApi(ctx *gin.Context) {
 	var req struct {
-		ID   int64  `json:"id" biding:"required"`
-		Name string `json:"name" binding:"required"`
+		ID      int64 `json:"id" biding:"required"`
+		Balance int64 `json:"balance" binding:"required,min=0"`
 	}
 
 	if err := ctx.ShouldBind(&req); err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
-	arg := db.UpdateSupplierParams{
-		ID:   req.ID,
-		Name: req.Name,
+	arg := db.UpdateSaleParams{
+		ID:      req.ID,
+		Balance: req.Balance,
 	}
 
 	sale, err := server.db.UpdateSale(ctx, arg)
