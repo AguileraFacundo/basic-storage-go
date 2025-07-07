@@ -9,7 +9,6 @@ import (
 	"testing"
 
 	"github.com/jackc/pgx/v5"
-	_ "github.com/lib/pq"
 
 	db "github.com/AguileraFacundo/caja-simple/internal/db/sqlc"
 )
