@@ -120,3 +120,13 @@ func (server *Server) updateSaleApi(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusAccepted, sale)
 }
+
+func (server *Server) lastTenSalesApi(ctx *gin.Context) {
+	lastTen, err := server.db.LastTenSales(ctx)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, lastTen)
+}

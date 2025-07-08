@@ -45,6 +45,32 @@ func (q *Queries) GetSale(ctx context.Context, id int64) (Sale, error) {
 	return i, err
 }
 
+const lastTenSales = `-- name: LastTenSales :many
+SELECT id, balance, date FROM sales
+ORDER BY date ASC
+LIMIT 10
+`
+
+func (q *Queries) LastTenSales(ctx context.Context) ([]Sale, error) {
+	rows, err := q.db.Query(ctx, lastTenSales)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Sale
+	for rows.Next() {
+		var i Sale
+		if err := rows.Scan(&i.ID, &i.Balance, &i.Date); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listSales = `-- name: ListSales :many
 SELECT id, balance, date FROM sales
 ORDER BY id

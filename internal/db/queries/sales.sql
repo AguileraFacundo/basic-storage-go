@@ -23,3 +23,8 @@ RETURNING *;
 -- name: DeleteSale :exec
 DELETE FROM sales
 WHERE id = $1;
+
+-- name: LastTenSales :many
+SELECT * FROM sales
+ORDER BY date ASC
+LIMIT 10;
